@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Number Pattern Generator</title>
+  <style>
+    /* Background with animated gradient */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      margin: 0;
+      padding: 40px;
+      color: #2c3e50;
+      text-align: center;
+    }
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    /* Heading */
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+      letter-spacing: 2px;
+    }
+
+    /* Controls */
+    select, input, button {
+      padding: 12px 18px;
+      margin: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+
+    select, input {
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    select:focus, input:focus {
+      outline: none;
+      box-shadow: 0 0 12px #36a2eb;
+    }
+
+    button {
+      background: linear-gradient(135deg, #36a2eb, #1f78c1);
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    button:hover {
+      transform: scale(1.08);
+      background: linear-gradient(135deg, #1f78c1, #36a2eb);
+    }
+
+    /* Pattern output box */
+    #patternOutput {
+      margin-top: 30px;
+      font-family: monospace;
+      white-space: pre;
+      text-align: center;
+      background: rgba(255,255,255,0.95);
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      display: inline-block;
+      min-width: 320px;
+      animation: fadeInBox 1s ease;
+    }
+    @keyframes fadeInBox {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Row colors with transitions */
+    .evenRow {
+      color: #36a2eb; /* Blue */
+      font-weight: bold;
+      transition: color 0.4s ease, transform 0.3s ease;
+      display: block;
+      animation: fadeInRow 0.6s ease forwards;
+    }
+
+    .oddRow {
+      color: #e74c3c; /* Red */
+      font-weight: bold;
+      transition: color 0.4s ease, transform 0.3s ease;
+      display: block;
+      animation: fadeInRow 0.6s ease forwards;
+    }
+
+    /* Fun hover effect on rows */
+    .evenRow:hover, .oddRow:hover {
+      transform: scale(1.15);
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Row fade-in animation */
+    @keyframes fadeInRow {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <h2>✨ Number Pattern Generator ✨</h2>
+  
+  <label for="patternType">Choose Pattern:</label>
+  <select id="patternType">
+    <option value="triangle">Triangle</option>
+    <option value="pyramid">Pyramid</option>
+    <option value="diamond">Diamond</option>
+  </select>
+  
+  <label for="rows">Rows:</label>
+  <input type="number" id="rows" value="5" min="2">
+  
+  <button onclick="generatePattern()">Generate</button>
+  
+  <div id="patternOutput"></div>
+  
+  <script>
+    function generatePattern() {
+      const type = document.getElementById('patternType').value;
+      const rows = parseInt(document.getElementById('rows').value);
+      const outputDiv = document.getElementById('patternOutput');
+      outputDiv.innerHTML = ''; // clear previous
+      
+      if (type === 'triangle') {
+        for (let i = 1; i <= rows; i++) {
+          let line = '';
+          for (let j = 1; j <= i; j++) {
+            line += j + ' ';
+          }
+          const span = document.createElement('span');
+          span.textContent = line.trim();
+          span.className = (i % 2 === 0) ? 'evenRow' : 'oddRow';
+          span.style.animationDelay = `${i * 0.1}s`; // staggered animation
+          outputDiv.appendChild(span);
+        }
+      }
+      
+      else if (type === 'pyramid') {
+        for (let i = 1; i <= rows; i++) {
+          let spaces = ' '.repeat(rows - i);
+          let nums = '';
+          for (let j = 1; j <= i; j++) {
+            nums += j + ' ';
+          }
+          const span = document.createElement('span');
+          span.textContent = spaces + nums.trim();
+          span.className = (i % 2 === 0) ? 'evenRow' : 'oddRow';
+          span.style.animationDelay = `${i * 0.1}s`;
+          outputDiv.appendChild(span);
+        }
+      }
+      
+      else if (type === 'diamond') {
+        // Upper half
+        for (let i = 1; i <= rows; i++) {
+          let spaces = ' '.repeat(rows - i);
+          let nums = '';
+          for (let j = 1; j <= i; j++) {
+            nums += j + ' ';
+          }
+          const span = document.createElement('span');
+          span.textContent = spaces + nums.trim();
+          span.className = (i % 2 === 0) ? 'evenRow' : 'oddRow';
+          span.style.animationDelay = `${i * 0.1}s`;
+          outputDiv.appendChild(span);
+        }
+        // Lower half
+        for (let i = rows - 1; i >= 1; i--) {
+          let spaces = ' '.repeat(rows - i);
+          let nums = '';
+          for (let j = 1; j <= i; j++) {
+            nums += j + ' ';
+          }
+          const span = document.createElement('span');
+          span.textContent = spaces + nums.trim();
+          span.className = (i % 2 === 0) ? 'evenRow' : 'oddRow';
+          span.style.animationDelay = `${i * 0.1}s`;
+          outputDiv.appendChild(span);
+        }
+      }
+    }
+  </script>
+</body>
+</html>

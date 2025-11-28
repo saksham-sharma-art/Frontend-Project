@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💰 Expense Tracker</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      margin: 0;
+      padding: 40px;
+      color: #2c3e50;
+      text-align: center;
+    }
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    h2 {
+      font-size: 2.5rem;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(0,0,0,0.6);
+      margin-bottom: 20px;
+    }
+    form {
+      background: rgba(255,255,255,0.95);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      display: inline-block;
+      margin-bottom: 30px;
+    }
+    input, select, button {
+      padding: 10px 14px;
+      margin: 8px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    input, select {
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    input:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 12px #36a2eb;
+    }
+    button {
+      background: linear-gradient(135deg, #36a2eb, #1f78c1);
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    button:hover {
+      transform: scale(1.08);
+      background: linear-gradient(135deg, #1f78c1, #36a2eb);
+    }
+    #expenseList {
+      margin-top: 20px;
+      text-align: left;
+      display: inline-block;
+      background: rgba(255,255,255,0.95);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      min-width: 300px;
+    }
+    #expenseList li {
+      margin: 6px 0;
+      font-weight: 500;
+    }
+    canvas {
+      margin-top: 30px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h2>💰 Expense Tracker with Chart Visualization</h2>
+
+  <!-- Expense Form -->
+  <form id="expenseForm">
+    <input type="text" id="title" placeholder="Expense Title" required>
+    <input type="number" id="amount" placeholder="Amount" min="1" required>
+    <select id="category" required>
+      <option value="">Select Category</option>
+      <option value="Food">🍔 Food</option>
+      <option value="Transport">🚗 Transport</option>
+      <option value="Shopping">🛍️ Shopping</option>
+      <option value="Bills">💡 Bills</option>
+      <option value="Other">📦 Other</option>
+    </select>
+    <button type="submit">Add Expense</button>
+  </form>
+
+  <!-- Expense List -->
+  <ul id="expenseList"></ul>
+
+  <!-- Chart -->
+  <canvas id="expenseChart" width="400" height="200"></canvas>
+
+  <script>
+    const expenseForm = document.getElementById('expenseForm');
+    const expenseList = document.getElementById('expenseList');
+    const ctx = document.getElementById('expenseChart').getContext('2d');
+
+    let expenses = [];
+
+    // Chart.js setup
+    let expenseChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Expenses',
+          data: [],
+          backgroundColor: ['#36a2eb','#e74c3c','#fbc531','#9b59b6','#2ecc71'],
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+
+    // Form handling with validation
+    expenseForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const title = document.getElementById('title').value.trim();
+      const amount = parseFloat(document.getElementById('amount').value);
+      const category = document.getElementById('category').value;
+
+      if (!title || !amount || !category) {
+        alert('⚠️ Please fill all fields correctly!');
+        return;
+      }
+
+      // ES6 destructuring
+      const newExpense = { title, amount, category };
+
+      // Spread operator to update expenses
+      expenses = [...expenses, newExpense];
+
+      renderExpenses();
+      updateChart();
+
+      expenseForm.reset();
+    });
+
+    // Render expense list
+    function renderExpenses() {
+      expenseList.innerHTML = '';
+      expenses.forEach(({title, amount, category}, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${index+1}. ${title} - ₹${amount} (${category})`;
+        expenseList.appendChild(li);
+      });
+    }
+
+    // Update chart
+    function updateChart() {
+      const categoryTotals = {};
+      expenses.forEach(({amount, category}) => {
+        categoryTotals[category] = (categoryTotals[category] || 0) + amount;
+      });
+
+      expenseChart.data.labels = Object.keys(categoryTotals);
+      expenseChart.data.datasets[0].data = Object.values(categoryTotals);
+      expenseChart.update();
+    }
+  </script>
+</body>
+</html>

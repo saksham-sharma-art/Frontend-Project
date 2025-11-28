@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saksham Sharma | Portfolio</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      color: #2c3e50;
+    }
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    h1, h2, h3 {
+      font-weight: bold;
+      color: #1f78c1;
+    }
+    a {
+      text-decoration: none;
+      color: #36a2eb;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #e74c3c;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    header h1 {
+      font-size: 2.8rem;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(0,0,0,0.6);
+      margin-bottom: 10px;
+    }
+    .profile-photo {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      margin: 20px 0;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+    .profile-photo:hover {
+      transform: scale(1.1);
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    nav a {
+      font-weight: bold;
+      color: #fff;
+    }
+
+    /* Sections */
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+    section {
+      margin-bottom: 40px;
+      background: rgba(255,255,255,0.9);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      animation: fadeInBox 1s ease;
+    }
+    @keyframes fadeInBox {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Skills */
+    #skills ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 0;
+      list-style: none;
+    }
+    #skills li {
+      background: #36a2eb;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+    #skills li:hover {
+      transform: scale(1.1);
+      background: #1f78c1;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+    }
+    footer a {
+      color: #36a2eb;
+      margin: 0 5px;
+    }
+    footer a:hover {
+      text-decoration: underline;
+      .profile-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.profile-photo:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Saksham Sharma</h1>
+    <img src="images/D:\IPHONE PHOTO\SELF.JPG" alt="Saksham Sharma Profile Photo" class="profile-photo" />
+    <p>Web Developer | Designer | Creator</p>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="about">
+      <h2>About Me</h2>
+      <p>Hello! I'm a passionate developer with a love for clean code and creative design. I specialize in building responsive websites and web applications.</p>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <article>
+        <h3>Project One</h3>
+        <p>A brief description of your first project. What it does, what technologies you used, and why it matters.</p>
+        <a href="#">View Project</a>
+      </article>
+      <article>
+        <h3>Project Two</h3>
+        <p>Another project highlight. You can include screenshots or links to GitHub repositories.</p>
+        <a href="#">View Project</a>
+      </article>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <ul>
+        <li>HTML5 & CSS3</li>
+        <li>JavaScript & React</li>
+        <li>Node.js & Express</li>
+        <li>Git & GitHub</li>
+        <li>Responsive Design</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <p>Feel free to reach out for collaborations or just a friendly hello!</p>
+      <address>
+        <a href="mailto:sharmashaksham4301@gmail.com">sharmashaksham4301@gmail.com</a><br />
+        <a href="tel:+918937992992">+91 9389482544</a>
+      </address>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Saksham Sharma. All rights reserved.</p>
+    <p>Follow me on 
+      <a href="https://www.linkedin.com/in/saksham-sharma-282151326">LinkedIn</a>, 
+      <a href="https://github.com/saksham-sharma-art">GitHub</a>
+    </p>
+  </footer>
+
+</body>
+</html>
